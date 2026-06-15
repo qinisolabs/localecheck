@@ -3,6 +3,7 @@
 <head>
 <meta charset="utf-8">
 <meta name="viewport" content="width=device-width, initial-scale=1">
+<link rel="icon" type="image/svg+xml" href="docs/logo.svg">
 <title>How often do AI agents get international data wrong? — localecheck benchmark</title>
 <style>
   :root { --ink:#15202b; --muted:#5b6b7a; --line:#e3e8ee; --bg:#fbfcfd; --accent:#0b6bcb; --warn:#b54708; }
@@ -30,6 +31,11 @@
 </head>
 <body>
 <div class="wrap">
+
+  <header style="display:flex;align-items:center;gap:12px;margin-bottom:32px;">
+    <img src="docs/logo.svg" alt="Qiniso" width="42" height="42" style="border-radius:10px;display:block;">
+    <span style="font-weight:700;font-size:1.05rem;letter-spacing:-.01em;color:var(--ink);">Qiniso <span style="color:var(--muted);font-weight:500;">· localecheck</span></span>
+  </header>
 
   <h1>How often do AI agents get international data wrong?</h1>
   <p class="lede">Frontier LLMs confidently produce plausible-but-wrong answers for everyday non-US data — dates, tax rates, currency, phone numbers, holidays, addresses. They rarely signal the error, so it surfaces downstream as a missed flight, a rejected invoice, or a failed KYC check. <strong>localecheck</strong> measures the gap and fills it.</p>
