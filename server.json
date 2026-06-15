@@ -1,7 +1,7 @@
 {
   "$schema": "https://static.modelcontextprotocol.io/schemas/2025-12-11/server.schema.json",
   "name": "io.github.qinisolabs/localecheck",
-  "description": "Locale-correctness tools for AI agents: verified dates, phone numbers, currency formatting, VAT/sales-tax by date, public holidays and addresses. UK + USA (v1).",
+  "description": "Verified locale data for AI agents: dates, phone, currency, tax, holidays, addresses (UK/US)",
   "version": "0.1.1",
   "repository": {
     "url": "https://github.com/qinisolabs/localecheck",
