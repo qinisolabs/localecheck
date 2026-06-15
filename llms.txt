@@ -1,0 +1,33 @@
+# localecheck
+
+> Locale-correctness API and MCP server for AI agents. Gives agents verified,
+> authoritative answers to the "boring" international data they otherwise
+> hallucinate: dates, phone numbers, currency formatting, VAT/sales-tax by date,
+> public holidays, and address parsing. Coverage: UK + USA (v1), expanding.
+
+Agents are systematically wrong outside US-English defaults: they read 03/04 as
+March 4 in the UK, apply today's VAT rate to a historical invoice, format €1.234,50
+as $1,234.50, and miss bank holidays when computing delivery SLAs. localecheck
+replaces guesses with checked answers and flags impossible inputs instead of
+fabricating them.
+
+## Tools / endpoints
+
+- parse_date(input, locale): ambiguous date -> ISO 8601; INVALID for impossible dates. Respects en-GB day-first vs en-US month-first.
+- validate_phone(number, region): -> E.164 + line type, via libphonenumber. INVALID if not valid.
+- format_currency(amount, currency, locale): locale-correct currency string, via CLDR.
+- tax_rate(country, date, state): UK standard VAT for a given date (handles historical/temporary changes); US national 0, state base sales tax by state code.
+- is_holiday(date, country, subdiv): national public-holiday check. GB defaults to England; subdiv selects SCT/WLS/NIR or US states.
+- next_holiday(country, after, subdiv): next public holiday on/after a date.
+- parse_address(input): UK/US address -> {country, postcode, city} with a confidence flag.
+
+## Install
+
+- MCP server: `pip install localecheck[mcp]` then run `localecheck-mcp` (stdio).
+- REST API: `pip install localecheck[api]` then `uvicorn app:app`.
+- Source: https://github.com/qinisolabs/localecheck
+
+## Docs
+
+- README: https://github.com/qinisolabs/localecheck/blob/main/README.md
+- Benchmark (how often LLMs get this wrong): https://github.com/qinisolabs/localecheck/blob/main/benchmark.html

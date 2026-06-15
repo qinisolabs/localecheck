@@ -1,0 +1,66 @@
+{
+  "name": "localecheck",
+  "version": "0.1.0",
+  "description": "Locale-correctness MCP server for AI agents: verified dates, phone, currency, VAT/sales-tax, holidays and addresses (UK + USA v1).",
+  "license": "Apache-2.0",
+  "author": "Qiniso",
+  "homepage": "https://github.com/qinisolabs/localecheck#readme",
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/qinisolabs/localecheck.git"
+  },
+  "bugs": {
+    "url": "https://github.com/qinisolabs/localecheck/issues"
+  },
+  "type": "module",
+  "main": "dist/index.js",
+  "types": "dist/index.d.ts",
+  "exports": {
+    ".": {
+      "types": "./dist/index.d.ts",
+      "import": "./dist/index.js"
+    },
+    "./package.json": "./package.json"
+  },
+  "bin": {
+    "localecheck-mcp": "dist/server.js"
+  },
+  "files": [
+    "dist",
+    "data",
+    "README.md",
+    "LICENSE"
+  ],
+  "engines": {
+    "node": ">=18"
+  },
+  "keywords": [
+    "mcp",
+    "model-context-protocol",
+    "agents",
+    "llm",
+    "locale",
+    "vat",
+    "tax",
+    "i18n",
+    "phone",
+    "currency",
+    "holidays"
+  ],
+  "scripts": {
+    "build": "tsc",
+    "start": "node dist/server.js",
+    "test": "tsx test/parity.test.ts"
+  },
+  "dependencies": {
+    "@modelcontextprotocol/sdk": "^1.0.0",
+    "date-holidays": "^3.23.0",
+    "libphonenumber-js": "^1.11.0",
+    "zod": "^3.23.0"
+  },
+  "devDependencies": {
+    "@types/node": "^20.19.43",
+    "tsx": "^4.16.0",
+    "typescript": "^5.5.0"
+  }
+}

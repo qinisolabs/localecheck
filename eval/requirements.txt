@@ -1,0 +1,8 @@
+# Ground-truth libraries (also used to build the dataset)
+phonenumbers>=8.13
+babel>=2.14
+holidays>=0.50
+
+# Model providers (install whichever you use; both optional)
+anthropic>=0.40
+openai>=1.40

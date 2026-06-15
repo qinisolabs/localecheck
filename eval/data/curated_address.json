@@ -1,0 +1,19 @@
+{
+  "category": "address_parse",
+  "description": "Parse a messy international address string into structured components: country (ISO-2), postcode, city. Tests whether the model handles non-US address structures (e.g. postcode-before-city, Japanese ordering, Irish Eircode).",
+  "scored_fields": ["country", "postcode", "city"],
+  "cases": [
+    {"id": "addr-gb-1", "input": "221B Baker Street, London NW1 6XE, United Kingdom", "expected": {"country": "GB", "postcode": "NW1 6XE", "city": "London"}},
+    {"id": "addr-de-1", "input": "Friedrichstraße 43-45, 10117 Berlin, Germany", "expected": {"country": "DE", "postcode": "10117", "city": "Berlin"}},
+    {"id": "addr-jp-1", "input": "〒100-0005 東京都千代田区丸の内1-9-1", "expected": {"country": "JP", "postcode": "100-0005", "city": "Chiyoda"}},
+    {"id": "addr-nl-1", "input": "Prinsengracht 263-267, 1016 GV Amsterdam, Netherlands", "expected": {"country": "NL", "postcode": "1016 GV", "city": "Amsterdam"}},
+    {"id": "addr-ie-1", "input": "Custom House Quay, Dublin 1, D01 W6X0, Ireland", "expected": {"country": "IE", "postcode": "D01 W6X0", "city": "Dublin"}},
+    {"id": "addr-br-1", "input": "Av. Paulista 1578, Bela Vista, São Paulo - SP, 01310-200, Brazil", "expected": {"country": "BR", "postcode": "01310-200", "city": "São Paulo"}},
+    {"id": "addr-in-1", "input": "Gateway of India, Apollo Bandar, Colaba, Mumbai, Maharashtra 400001, India", "expected": {"country": "IN", "postcode": "400001", "city": "Mumbai"}},
+    {"id": "addr-fr-1", "input": "5 Avenue Anatole France, 75007 Paris, France", "expected": {"country": "FR", "postcode": "75007", "city": "Paris"}},
+    {"id": "addr-us-1", "input": "1600 Amphitheatre Parkway, Mountain View, CA 94043, USA", "expected": {"country": "US", "postcode": "94043", "city": "Mountain View"}},
+    {"id": "addr-ca-1", "input": "301 Front St W, Toronto, ON M5V 2T6, Canada", "expected": {"country": "CA", "postcode": "M5V 2T6", "city": "Toronto"}},
+    {"id": "addr-au-1", "input": "Bennelong Point, Sydney NSW 2000, Australia", "expected": {"country": "AU", "postcode": "2000", "city": "Sydney"}},
+    {"id": "addr-ch-1", "input": "Bahnhofstrasse 1, 8001 Zürich, Switzerland", "expected": {"country": "CH", "postcode": "8001", "city": "Zürich"}}
+  ]
+}

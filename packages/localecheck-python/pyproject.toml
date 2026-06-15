@@ -1,0 +1,47 @@
+[build-system]
+requires = ["setuptools>=68", "wheel"]
+build-backend = "setuptools.build_meta"
+
+[project]
+# NOTE: check name availability on PyPI before publishing; pick a free name.
+name = "localecheck"
+version = "0.1.0"
+description = "Locale-correctness tools for AI agents: verified dates, phone, currency, VAT/sales-tax, holidays and addresses (UK + USA v1)."
+readme = "README.md"
+requires-python = ">=3.9"
+license = { text = "Apache-2.0" }
+authors = [{ name = "localecheck" }]
+keywords = ["mcp", "agents", "llm", "locale", "vat", "tax", "i18n", "phone", "currency", "holidays"]
+classifiers = [
+    "Development Status :: 4 - Beta",
+    "Intended Audience :: Developers",
+    "License :: OSI Approved :: Apache Software License",
+    "Programming Language :: Python :: 3",
+    "Topic :: Software Development :: Libraries",
+]
+dependencies = [
+    "phonenumbers>=8.13",
+    "babel>=2.14",
+    "holidays>=0.50",
+    "python-dateutil>=2.8",
+]
+
+[project.optional-dependencies]
+api = ["fastapi>=0.110", "uvicorn>=0.29"]
+mcp = ["mcp>=1.2"]
+dev = ["pytest>=8.0", "httpx>=0.27", "build>=1.0"]
+
+[project.urls]
+Homepage = "https://github.com/qinisolabs/localecheck"
+Repository = "https://github.com/qinisolabs/localecheck"
+
+[project.scripts]
+# `pip install localecheck[mcp]` then run `localecheck-mcp` as an MCP stdio server
+localecheck-mcp = "mcp_server:main"
+
+[tool.setuptools]
+packages = ["localecheck"]
+py-modules = ["app", "mcp_server"]
+
+[tool.setuptools.package-data]
+localecheck = ["data/*.json"]

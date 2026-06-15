@@ -1,0 +1,26 @@
+{
+  "category": "vat_rate",
+  "description": "Standard VAT/GST rate (%) for a country on a specific date. Tests whether the model knows date-sensitive tax rates, including temporary changes. Ground truth is hand-curated from public tax authority records; verify before relying on edge cases.",
+  "cases": [
+    {"id": "vat-uk-2025", "country": "GB", "date": "2025-06-01", "expected": "20", "note": "UK standard rate 20% since 2011-01-04"},
+    {"id": "vat-uk-2010", "country": "GB", "date": "2010-06-01", "expected": "17.5", "note": "UK was 17.5% before the 2011 rise"},
+    {"id": "vat-uk-2009", "country": "GB", "date": "2009-06-01", "expected": "15", "note": "UK temporary 15% from 2008-12-01 to 2009-12-31"},
+    {"id": "vat-de-2025", "country": "DE", "date": "2025-06-01", "expected": "19", "note": "Germany standard 19%"},
+    {"id": "vat-de-covid", "country": "DE", "date": "2020-09-01", "expected": "16", "note": "Germany temporary 16% from 2020-07-01 to 2020-12-31"},
+    {"id": "vat-ie-2025", "country": "IE", "date": "2025-06-01", "expected": "23", "note": "Ireland standard 23%"},
+    {"id": "vat-ie-covid", "country": "IE", "date": "2020-11-01", "expected": "21", "note": "Ireland temporary 21% from 2020-09-01 to 2021-02-28"},
+    {"id": "vat-fr-2025", "country": "FR", "date": "2025-06-01", "expected": "20", "note": "France standard 20% since 2014-01-01"},
+    {"id": "vat-fr-2013", "country": "FR", "date": "2013-06-01", "expected": "19.6", "note": "France was 19.6% before 2014"},
+    {"id": "vat-nl-2025", "country": "NL", "date": "2025-06-01", "expected": "21", "note": "Netherlands standard 21% since 2012-10-01"},
+    {"id": "vat-es-2025", "country": "ES", "date": "2025-06-01", "expected": "21", "note": "Spain standard 21% since 2012-09-01"},
+    {"id": "vat-it-2025", "country": "IT", "date": "2025-06-01", "expected": "22", "note": "Italy standard 22% since 2013-10-01"},
+    {"id": "vat-ch-2025", "country": "CH", "date": "2025-06-01", "expected": "8.1", "note": "Switzerland standard 8.1% since 2024-01-01"},
+    {"id": "vat-ch-2022", "country": "CH", "date": "2022-06-01", "expected": "7.7", "note": "Switzerland was 7.7% from 2018 to 2023"},
+    {"id": "vat-jp-2025", "country": "JP", "date": "2025-06-01", "expected": "10", "note": "Japan consumption tax 10% since 2019-10-01"},
+    {"id": "vat-jp-2018", "country": "JP", "date": "2018-06-01", "expected": "8", "note": "Japan was 8% before 2019-10"},
+    {"id": "vat-au-2025", "country": "AU", "date": "2025-06-01", "expected": "10", "note": "Australia GST 10%"},
+    {"id": "vat-us-2025", "country": "US", "date": "2025-06-01", "expected": "0", "note": "US has no national VAT; sales tax is state-level. Correct answer is no national VAT (0)."},
+    {"id": "vat-no-2025", "country": "NO", "date": "2025-06-01", "expected": "25", "note": "Norway standard 25%"},
+    {"id": "vat-se-2025", "country": "SE", "date": "2025-06-01", "expected": "25", "note": "Sweden standard 25%"}
+  ]
+}

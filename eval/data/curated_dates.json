@@ -1,0 +1,22 @@
+{
+  "category": "date_parse",
+  "description": "Parse an ambiguous human date string given a locale, returning ISO 8601 (YYYY-MM-DD). Tests whether the model respects locale day/month ordering instead of defaulting to US MM/DD.",
+  "cases": [
+    {"id": "date-gb-1", "input": "03/04/2025", "locale": "en-GB", "expected": "2025-04-03", "note": "DD/MM in UK"},
+    {"id": "date-us-1", "input": "03/04/2025", "locale": "en-US", "expected": "2025-03-04", "note": "MM/DD in US"},
+    {"id": "date-de-1", "input": "05.06.2025", "locale": "de-DE", "expected": "2025-06-05", "note": "German DD.MM.YYYY"},
+    {"id": "date-gb-2", "input": "12/01/2024", "locale": "en-GB", "expected": "2024-01-12", "note": "12 Jan in UK"},
+    {"id": "date-us-2", "input": "12/01/2024", "locale": "en-US", "expected": "2024-12-01", "note": "1 Dec in US"},
+    {"id": "date-jp-1", "input": "2025年3月4日", "locale": "ja-JP", "expected": "2025-03-04", "note": "Japanese kanji date"},
+    {"id": "date-fr-1", "input": "4 juillet 2025", "locale": "fr-FR", "expected": "2025-07-04", "note": "French month name"},
+    {"id": "date-gb-3", "input": "1st February 2025", "locale": "en-GB", "expected": "2025-02-01", "note": "ordinal"},
+    {"id": "date-iso-1", "input": "2025-13-01", "locale": "en-GB", "expected": "INVALID", "note": "month 13 is invalid; model should flag, not guess"},
+    {"id": "date-gb-4", "input": "29/02/2023", "locale": "en-GB", "expected": "INVALID", "note": "2023 is not a leap year"},
+    {"id": "date-gb-5", "input": "31/04/2025", "locale": "en-GB", "expected": "INVALID", "note": "April has 30 days"},
+    {"id": "date-nl-1", "input": "6-7-2025", "locale": "nl-NL", "expected": "2025-07-06", "note": "Dutch DD-MM"},
+    {"id": "date-sv-1", "input": "2025-09-08", "locale": "sv-SE", "expected": "2025-09-08", "note": "Swedish already ISO"},
+    {"id": "date-gb-6", "input": "Tuesday 14 June 2026", "locale": "en-GB", "expected": "2026-06-14", "note": "with weekday"},
+    {"id": "date-us-3", "input": "Jan 2, 2025", "locale": "en-US", "expected": "2025-01-02", "note": "US written"},
+    {"id": "date-de-2", "input": "1. Januar 2025", "locale": "de-DE", "expected": "2025-01-01", "note": "German written"}
+  ]
+}

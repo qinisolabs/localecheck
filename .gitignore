@@ -1,0 +1,27 @@
+# Node / TypeScript
+node_modules/
+dist/
+*.tgz
+
+# Python
+__pycache__/
+*.pyc
+build/
+*.egg-info/
+.pytest_cache/
+.venv/
+venv/
+
+# Eval / local output
+report.json
+report.md
+eval/data/gen_*.json
+
+# Env / secrets
+.env
+*.local
+
+# OS / editor
+.DS_Store
+.idea/
+.vscode/

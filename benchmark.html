@@ -1,0 +1,90 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>How often do AI agents get international data wrong? — localecheck benchmark</title>
+<style>
+  :root { --ink:#15202b; --muted:#5b6b7a; --line:#e3e8ee; --bg:#fbfcfd; --accent:#0b6bcb; --warn:#b54708; }
+  * { box-sizing:border-box; }
+  body { margin:0; font:16px/1.6 -apple-system,BlinkMacSystemFont,"Segoe UI",Roboto,Helvetica,Arial,sans-serif; color:var(--ink); background:var(--bg); }
+  .wrap { max-width:820px; margin:0 auto; padding:48px 22px 80px; }
+  h1 { font-size:2rem; line-height:1.2; margin:0 0 .4em; letter-spacing:-.01em; }
+  h2 { font-size:1.25rem; margin:2.2em 0 .6em; }
+  p { margin:.6em 0; }
+  .lede { font-size:1.15rem; color:var(--muted); }
+  .banner { background:#fff7ed; border:1px solid #fed7aa; color:var(--warn); padding:12px 16px; border-radius:10px; font-size:.92rem; margin:18px 0; }
+  table { width:100%; border-collapse:collapse; margin:1em 0; font-size:.95rem; }
+  th,td { text-align:left; padding:10px 12px; border-bottom:1px solid var(--line); }
+  th { font-size:.8rem; text-transform:uppercase; letter-spacing:.04em; color:var(--muted); }
+  td.rate { font-variant-numeric:tabular-nums; font-weight:600; }
+  .bar { height:8px; border-radius:4px; background:linear-gradient(90deg,var(--accent),#3a8fe0); }
+  .barwrap { background:var(--line); border-radius:4px; overflow:hidden; }
+  code { background:#eef2f6; padding:1px 6px; border-radius:5px; font-size:.88em; }
+  .fail { background:#fff; border:1px solid var(--line); border-radius:10px; padding:14px 16px; margin:10px 0; }
+  .fail .q { color:var(--muted); font-size:.85rem; }
+  .wrong { color:#b42318; } .right { color:#067647; }
+  footer { margin-top:48px; color:var(--muted); font-size:.85rem; border-top:1px solid var(--line); padding-top:18px; }
+  a { color:var(--accent); }
+</style>
+</head>
+<body>
+<div class="wrap">
+
+  <h1>How often do AI agents get international data wrong?</h1>
+  <p class="lede">Frontier LLMs confidently produce plausible-but-wrong answers for everyday non-US data — dates, tax rates, currency, phone numbers, holidays, addresses. They rarely signal the error, so it surfaces downstream as a missed flight, a rejected invoice, or a failed KYC check. <strong>localecheck</strong> measures the gap and fills it.</p>
+
+  <div class="banner">⚠️ Illustrative figures below. The numbers shown are placeholders from the harness in <code>--mock</code> mode to demonstrate the format. Run the open-source eval against a real model to populate this page with live results — see “Reproduce it” at the bottom.</div>
+
+  <h2>Error rate by category</h2>
+  <p>Each category is scored against an authoritative source (libphonenumber, Unicode CLDR, python-holidays, and curated tax records). “Error” means the model disagreed with the verified answer.</p>
+
+  <table>
+    <thead><tr><th>Category</th><th>What breaks</th><th>Error rate*</th><th></th></tr></thead>
+    <tbody>
+      <tr><td>Currency formatting</td><td>US-style format applied to other locales</td><td class="rate">~40–65%</td><td><div class="barwrap"><div class="bar" style="width:60%"></div></div></td></tr>
+      <tr><td>Date parsing</td><td>Reads DD/MM as MM/DD; guesses impossible dates</td><td class="rate">~30–45%</td><td><div class="barwrap"><div class="bar" style="width:42%"></div></div></td></tr>
+      <tr><td>VAT by date</td><td>Applies today’s rate to historical / temporary periods</td><td class="rate">~25–40%</td><td><div class="barwrap"><div class="bar" style="width:35%"></div></div></td></tr>
+      <tr><td>Address parsing</td><td>Mis-splits non-US postcode/city ordering</td><td class="rate">~25–35%</td><td><div class="barwrap"><div class="bar" style="width:30%"></div></div></td></tr>
+      <tr><td>Public holidays</td><td>Misses regional bank holidays; over-calls famous ones</td><td class="rate">~10–20%</td><td><div class="barwrap"><div class="bar" style="width:15%"></div></div></td></tr>
+      <tr><td>Phone validation</td><td>Fails to reject invalid numbers</td><td class="rate">~5–15%</td><td><div class="barwrap"><div class="bar" style="width:12%"></div></div></td></tr>
+    </tbody>
+  </table>
+  <p style="font-size:.85rem;color:var(--muted)">*Ranges are illustrative pending a real-model run. Phone is near-solved by existing libraries; tax-by-date and currency formatting are the highest-value gaps.</p>
+
+  <h2>Concrete failures (real LLM-style errors)</h2>
+
+  <div class="fail">
+    <div class="q">Move my flight to <code>03/04</code> — user is in London (en-GB)</div>
+    <span class="wrong">✗ Agent rebooks 4 March</span> &nbsp;→&nbsp; <span class="right">✓ Correct: 3 April</span>
+  </div>
+  <div class="fail">
+    <div class="q">Generate a UK invoice dated <code>2009-06-01</code></div>
+    <span class="wrong">✗ Agent applies 20% VAT</span> &nbsp;→&nbsp; <span class="right">✓ Correct: 15% (temporary financial-crisis rate)</span>
+  </div>
+  <div class="fail">
+    <div class="q">Show revenue to a German reader: <code>1234.5 EUR</code></div>
+    <span class="wrong">✗ €1,234.50 (reads as ~1,200)</span> &nbsp;→&nbsp; <span class="right">✓ 1.234,50 € </span>
+  </div>
+  <div class="fail">
+    <div class="q">“Delivery in 2 business days” quoted on 19 Apr 2025 (England)</div>
+    <span class="wrong">✗ Counts Easter Monday as a working day</span> &nbsp;→&nbsp; <span class="right">✓ 21 Apr is a bank holiday</span>
+  </div>
+
+  <h2>Reproduce it</h2>
+  <p>The benchmark is open source. Point it at any model and it regenerates a report:</p>
+  <p><code>pip install -r requirements.txt &amp;&amp; python generate_dataset.py</code><br>
+     <code>export ANTHROPIC_API_KEY=… &amp;&amp; python run_eval.py --provider anthropic</code></p>
+  <p>It writes a per-category error table and the full list of failures. Run it against each new model release to see whether the gap is closing or durable.</p>
+
+  <h2>Fix it in one tool call</h2>
+  <p>localecheck is an MCP server and REST API that returns verified answers and flags impossible inputs instead of guessing. <code>pip install localecheck[mcp]</code> → <code>localecheck-mcp</code>.</p>
+
+  <footer>
+    localecheck — locale-correctness for AI agents. UK + USA (v1), expanding.
+    Source &amp; benchmark: github.com/qinisolabs/localecheck
+  </footer>
+
+</div>
+</body>
+</html>
