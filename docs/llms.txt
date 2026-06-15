@@ -23,8 +23,9 @@ fabricating them.
 
 ## Install
 
-- MCP server: `pip install localecheck[mcp]` then run `localecheck-mcp` (stdio).
-- REST API: `pip install localecheck[api]` then `uvicorn app:app`.
+- MCP server (live on npm): `npx -y localecheck` — add to Claude Desktop, Cursor, or any MCP client.
+- Library: `npm install localecheck` then `import { vatRate } from "localecheck"`.
+- Python package: in the repo (packages/localecheck-python); PyPI release coming soon.
 - Source: https://github.com/qinisolabs/localecheck
 
 ## Docs

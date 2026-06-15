@@ -5,7 +5,8 @@ currency formatting, VAT/sales-tax by date, public holidays, and addresses**.
 Coverage: UK + USA (v1). Free, no API key.
 
 This is the **TypeScript / npm** build for the widest MCP-client reach. The same
-tools also exist as a Python package + REST API (see the `locale-api` project).
+tools also exist as a Python package + REST API (see `packages/localecheck-python`
+in the repo; PyPI release coming soon).
 
 ## Add to your AI app (zero install via npx)
 

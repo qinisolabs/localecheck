@@ -12,8 +12,8 @@ Coverage: **UK + USA** (v1), expanding. Free, no API key.
 
 | | Package | Install | Use |
 |---|---|---|---|
-| **TypeScript** (primary) | [`packages/localecheck-ts`](packages/localecheck-ts) | `npx -y localecheck` | MCP server **and** importable library |
-| **Python** | [`packages/localecheck-python`](packages/localecheck-python) | `pip install localecheck` / `uvx` | MCP server, importable library, REST API |
+| **TypeScript** (primary) | [`packages/localecheck-ts`](packages/localecheck-ts) | `npx -y localecheck` *(live on npm)* | MCP server **and** importable library |
+| **Python** | [`packages/localecheck-python`](packages/localecheck-python) | from source *(PyPI release coming soon)* | MCP server, importable library, REST API |
 
 Both wrap the same authoritative libraries (libphonenumber, CLDR/Intl,
 date-holidays) and share the same hand-curated tax data.
