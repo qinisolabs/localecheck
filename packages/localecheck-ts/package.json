@@ -1,6 +1,7 @@
 {
   "name": "localecheck",
-  "version": "0.1.0",
+  "version": "0.1.1",
+  "mcpName": "io.github.qinisolabs/localecheck",
   "description": "Locale-correctness MCP server for AI agents: verified dates, phone, currency, VAT/sales-tax, holidays and addresses (UK + USA v1).",
   "license": "Apache-2.0",
   "author": "Qiniso",
