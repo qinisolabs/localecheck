@@ -1,0 +1,9 @@
+localecheck
+Copyright 2026 Qiniso
+
+This product is licensed under the Apache License, Version 2.0 (see LICENSE).
+
+The Apache-2.0 license covers the localecheck SOURCE CODE only. The curated
+tax / VAT-by-date / sales-tax datasets under data/ are provided as a LIMITED
+SAMPLE for evaluation. The full, maintained, multi-country dataset is a
+separate proprietary work and is NOT licensed under Apache-2.0.
